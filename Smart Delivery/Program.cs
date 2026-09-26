@@ -96,6 +96,136 @@ The compiler removes the declaration and its calls,
 
             #endregion
 
+
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Smart Delivery Management System");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Creating Shipments...");
+            DeliveryUtilities.PrintSeparator();
+
+            Shipment shipment1 = new Shipment("SH001", "Standard", 3,
+                new DeliveryAddress("Cairo"), "In Transit");
+            Console.WriteLine("Standard Shipment Created");
+
+            Shipment shipment2 = new Shipment("SH002", "Express", 2,
+                new DeliveryAddress("Alexandria"), "Out For Delivery");
+            Console.WriteLine("Express Shipment Created");
+
+            Shipment shipment3 = new Shipment("SH003", "International", 8,
+                new DeliveryAddress("Giza"), "Delivered");
+            Console.WriteLine("International Shipment Created");
+            Console.WriteLine();
+
+            Console.WriteLine($"Total Shipments Created : {Shipment.GetTotalShipmentsCreated()}");
+            Console.WriteLine();
+
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Object Copying");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            Shipment assignedShipment = shipment1;
+            Console.WriteLine($"Original Shipment : {shipment1.TrackingCode}");
+            Console.WriteLine($"Assigned Shipment : {assignedShipment.TrackingCode}");
+            Console.WriteLine($"Same Object : {ReferenceEquals(shipment1, assignedShipment)}");
+            Console.WriteLine();
+
+            Shipment realCopy = shipment1.CopyShipment(); 
+            Console.WriteLine($"Is CopyShipment() a different object? : {!ReferenceEquals(shipment1, realCopy)}");
+            Console.WriteLine();
+
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Shallow Copy");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            Shipment shallowCopy = shipment1.ShallowCopy();
+            Console.WriteLine($"Original Shipment Address : {shipment1.DeliveryAddress.City}");
+            Console.WriteLine($"Copied Shipment Address   : {shallowCopy.DeliveryAddress.City}");
+            Console.WriteLine();
+
+            Console.WriteLine("Changing copied shipment address...");
+            shallowCopy.DeliveryAddress.City = "Giza";
+            Console.WriteLine();
+
+            Console.WriteLine($"Original Shipment Address : {shipment1.DeliveryAddress.City}");
+            Console.WriteLine($"Copied Shipment Address   : {shallowCopy.DeliveryAddress.City}");
+            Console.WriteLine();
+            Console.WriteLine($"Same DeliveryAddress Object : " +
+                $"{ReferenceEquals(shipment1.DeliveryAddress, shallowCopy.DeliveryAddress)}");
+            Console.WriteLine();
+
+            shipment1.DeliveryAddress.City = "Cairo";
+
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Deep Copy");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            Shipment deepCopy = shipment1.DeepCopy();
+            Console.WriteLine($"Original Shipment Address : {shipment1.DeliveryAddress.City}");
+            Console.WriteLine($"Copied Shipment Address   : {deepCopy.DeliveryAddress.City}");
+            Console.WriteLine();
+
+            Console.WriteLine("Changing copied shipment address...");
+            deepCopy.DeliveryAddress.City = "Giza";
+            Console.WriteLine();
+
+            Console.WriteLine($"Original Shipment Address : {shipment1.DeliveryAddress.City}");
+            Console.WriteLine($"Copied Shipment Address   : {deepCopy.DeliveryAddress.City}");
+            Console.WriteLine();
+            Console.WriteLine($"Same DeliveryAddress Object : " +
+                $"{ReferenceEquals(shipment1.DeliveryAddress, deepCopy.DeliveryAddress)}");
+            Console.WriteLine();
+
+     
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Extension Methods");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            Console.WriteLine(shipment1.GetSummary());
+            Console.WriteLine(shipment2.GetSummary());
+            Console.WriteLine(shipment3.GetSummary());
+            Console.WriteLine();
+
+            Console.WriteLine($"SH001 Is Delivered : {shipment1.IsDelivered()}");
+            Console.WriteLine($"SH003 Is Delivered : {shipment3.IsDelivered()}");
+            Console.WriteLine();
+
+
+            Console.WriteLine("Tracking Status");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            shipment1.UpdateTrackingStatus("Out For Delivery");
+            Console.WriteLine();
+
+    
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Static Utilities");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            DeliveryUtilities.PrintSystemTitle();
+            Console.WriteLine();
+            Console.WriteLine($"Total Shipments Created : {Shipment.GetTotalShipmentsCreated()}");
+            Console.WriteLine();
+
+
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Partial Method");
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine();
+
+            shipment1.UpdateTrackingStatus("Delivered");
+            Console.WriteLine();
+
+            DeliveryUtilities.PrintSeparator();
+            Console.WriteLine("Assignment Completed");
+            DeliveryUtilities.PrintSeparator();
         }
     }
 }
